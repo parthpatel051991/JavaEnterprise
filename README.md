@@ -1,2 +1,2 @@
 # JavaEnterprise
-Java Practice
+Java Projects
