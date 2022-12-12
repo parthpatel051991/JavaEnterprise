@@ -1,25 +1,31 @@
-package com.ineuron.JDBC;
+package com.ineuron.JDBC.JdbcStatement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
-
-
-public class SelectApp {
-
+public class DynamicInsertApp2 {
 	public static void main(String[] args) throws SQLException {
 
 		Connection connection = null;
 		Statement statement = null;
-		ResultSet resultSet = null;
 
 		// Step2.Established the connection b/w java and Databases
 		String url = "jdbc:mysql://localhost:3306/student_details";
 		String username = "root";
 		String password = "rootpassword";
+		
+		Scanner scanner=new Scanner(System.in);
+		
+		System.out.println("Enter Name :");
+		String name=scanner.next();
+		
+		System.out.println("Enter Age :");
+		int age=scanner.nextInt();
+		
+		
 
 		try {
 
@@ -32,28 +38,14 @@ public class SelectApp {
 
 				if (statement != null) {
 
-					String sqlSelectQuery = "select id,country,firstName,lastName,middleName from student where id =1";
+					String insertSqlQuery = String.format("insert into student1(`name`,`age`)values('%s',%d)",name,age);
+					System.out.println(insertSqlQuery);
 
 					// Step4 : using Statement object executing query
-					resultSet = statement.executeQuery(sqlSelectQuery);
+					int noOfRows = statement.executeUpdate(insertSqlQuery);
+					
 
-					if (resultSet != null) {
-
-						// Step5 :Process the result from Resultset
-						
-						System.out.println("id\tcountry\tfirstName\tlastName\tmiddleName");
-						
-
-						while (resultSet.next()) {
-							Integer id = resultSet.getInt(1);
-							String country = resultSet.getString(2);
-							String firstName = resultSet.getString(3);
-							String lastName = resultSet.getString(4);
-							String middleName = resultSet.getString(5);
-							System.out.println(
-									id + " \t " + country + " \t " + firstName + " \t " + lastName + "\t" + middleName);
-						}
-					}
+					System.out.println("No of rows affected :" + noOfRows);
 
 				}
 			}
@@ -65,18 +57,18 @@ public class SelectApp {
 		} finally {
 
 			// Step6 ::Close the connection
-
-			if (resultSet != null) {
-				resultSet.close();
-			}
+			
 			if (statement != null) {
 				statement.close();
 			}
+
 			if (connection != null) {
 				connection.close();
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 		}
 
 	}
-
 }

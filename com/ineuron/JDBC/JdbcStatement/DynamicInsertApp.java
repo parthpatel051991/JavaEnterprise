@@ -1,12 +1,12 @@
-package com.ineuron.JDBC;
+package com.ineuron.JDBC.JdbcStatement;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
-public class UpdateApp {
-
+public class DynamicInsertApp {
 	public static void main(String[] args) throws SQLException {
 
 		Connection connection = null;
@@ -16,6 +16,16 @@ public class UpdateApp {
 		String url = "jdbc:mysql://localhost:3306/student_details";
 		String username = "root";
 		String password = "rootpassword";
+		
+		Scanner scanner=new Scanner(System.in);
+		
+		System.out.println("Enter Name :");
+		String name=scanner.next();
+		
+		System.out.println("Enter Age :");
+		int age=scanner.nextInt();
+		
+		name = "'" + name + "'";
 
 		try {
 
@@ -28,29 +38,35 @@ public class UpdateApp {
 
 				if (statement != null) {
 
-					String updateSqlQuery = "update student1 set age=35 where id=3";
+					String insertSqlQuery = "Insert into student1(`name`,`age`)values("+name+","+age+")";
+					System.out.println(insertSqlQuery);
 
 					// Step4 : using Statement object executing query
-					int noOfRows = statement.executeUpdate(updateSqlQuery);
+					int noOfRows = statement.executeUpdate(insertSqlQuery);
+					
 
-					System.out.println("No of rows updated :" + noOfRows);
+					System.out.println("No of rows affected :" + noOfRows);
 
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 
 			// Step6 ::Close the connection
-
+			
 			if (statement != null) {
 				statement.close();
 			}
+
 			if (connection != null) {
 				connection.close();
+			}
+			if (scanner != null) {
+				scanner.close();
 			}
 		}
 

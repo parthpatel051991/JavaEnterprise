@@ -1,4 +1,4 @@
-package com.ineuron.JDBC;
+package com.ineuron.JDBC.JdbcStatement;
 
 import java.sql.*;
 import com.mysql.cj.jdbc.Driver;
