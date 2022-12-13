@@ -19,7 +19,7 @@ public class Select {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.print("Enter Student id :");
-		int sid =scanner.nextInt() ;
+		int sid = scanner.nextInt();
 
 		try {
 			// Established the connection b/w java and Databases through method created in
@@ -31,33 +31,31 @@ public class Select {
 				// create a Statement object
 				statement = connection.createStatement();
 			}
-				if (statement != null) {
+			if (statement != null) {
 
-					String sqlSelectQuery = "select sid,sname,sage,saddr from student_details where sid =" + sid + "";
+				String sqlSelectQuery = "select sid,sname,sage,saddr from student_details where sid =" + sid + "";
 
-					// using Statement object executing query
-					resultSet = statement.executeQuery(sqlSelectQuery);
+				// using Statement object executing query
+				resultSet = statement.executeQuery(sqlSelectQuery);
+			}
+			if (resultSet != null) {
+
+				// Process the result from Resultset
+
+				if (resultSet.next()) {
+
+					System.out.println("sid\tsname\tsage\tsaddr");
+
+					Integer id = resultSet.getInt(1);
+					String name = resultSet.getString(2);
+					Integer age = resultSet.getInt(3);
+					String address = resultSet.getString(4);
+					System.out.println(id + "\t" + name + "\t" + age + "\t" + address);
+				} else {
+					System.out.println("Record is not available for given id :" + sid);
 				}
-					if (resultSet != null) {
+			}
 
-						// Process the result from Resultset
-
-						if (resultSet.next()) {
-
-							System.out.println("sid\tsname\tsage\tsaddr");
-
-							Integer id = resultSet.getInt(1);
-							String name = resultSet.getString(2);
-							Integer age = resultSet.getInt(3);
-							String address = resultSet.getString(4);
-							System.out.println(id + "\t" + name + "\t" + age + "\t" + address);
-						} else {
-							System.out.println("Record is not available for given id :" + sid);
-						}
-					}
-
-				
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -68,9 +66,6 @@ public class Select {
 
 			JdbcUtil.closeConnection(resultSet, statement, connection);
 
-			if (scanner != null) {
-				scanner.close();
-			}
 		}
 
 	}

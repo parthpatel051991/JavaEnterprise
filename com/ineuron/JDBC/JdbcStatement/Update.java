@@ -1,8 +1,6 @@
 package com.ineuron.JDBC.JdbcStatement;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -15,14 +13,12 @@ public class Update {
 
 		Connection connection = null;
 		Statement statement = null;
-		
 
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.print("Enter Your Student id :");
-		int sid=scanner.nextInt();
-		
-		
+		int sid = scanner.nextInt();
+
 		System.out.print("Enter Student Name :");
 		String sname = scanner.next();
 
@@ -44,15 +40,17 @@ public class Update {
 			}
 			if (statement != null) {
 
-				String sqlUpdateQuery = String.format("Update student_details set sname='%s',sage=%d,saddr='%s' where sid=%d" , sname,sage,saddr,sid);
+				String sqlUpdateQuery = String.format(
+						"Update student_details set sname='%s',sage=%d,saddr='%s' where sid=%d", sname, sage, saddr,
+						sid);
 
 				// using Statement object executing query
 				int rowsAffected = statement.executeUpdate(sqlUpdateQuery);
 //				System.out.println("Sql query :" +sqlUpdateQuery);
 				System.out.println("No of rows affected : " + rowsAffected);
-				
+
 				if (rowsAffected == 0) {
-					System.out.println("Record is not found for given id: "+sid);
+					System.out.println("Record is not found for given id: " + sid);
 				}
 			}
 
@@ -66,9 +64,6 @@ public class Update {
 
 			JdbcUtil.closeConnection(null, statement, connection);
 
-			if (scanner != null) {
-				scanner.close();
-			}
 		}
 
 	}

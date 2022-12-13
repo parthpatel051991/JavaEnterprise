@@ -1,7 +1,6 @@
 package com.ineuron.JDBC.JdbcStatement;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
@@ -58,9 +57,7 @@ public class Delete {
 
 			JdbcUtil.closeConnection(null, statement, connection);
 
-			if (scanner != null) {
-				scanner.close();
-			}
+
 		}
 
 	}
