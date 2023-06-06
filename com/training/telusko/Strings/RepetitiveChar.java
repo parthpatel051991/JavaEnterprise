@@ -14,7 +14,7 @@ public class RepetitiveChar extends StringMethods{
 		System.out.println("Enter the String :");
 		String n = scan.nextLine();
 
-	//	n=n.toLowerCase();  optional if you want to ignore case
+	//	n=n.toLowerCase();  optional if you want to ignore case3
 		
 		char a[] = n.toCharArray();
 		
